@@ -1,0 +1,45 @@
+<template>
+  <el-container>
+    <el-header>
+      <el-row class="row-bg" :gutter="20" justify="center">
+        <el-col class="left" :span="12">
+          <div>111</div>
+        </el-col>
+        <el-col class="middle" :span="6">
+          <el-input
+              v-model="input1"
+              class="w-50 m-2"
+              size="large"
+              placeholder="Please Input"
+              :prefix-icon="Search"
+          />
+        </el-col>
+        <el-col class="right" :span="2"  :offset="4">
+          <el-avatar  src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png" />
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
+  </el-container>
+</template>
+<script>
+/* eslint-disable */
+import {defineComponent, ref} from "vue";
+import {Search} from '@element-plus/icons-vue'
+export default defineComponent({
+  name: "layout",
+  setup() {
+    const input1=ref('')
+    return {
+      input1,
+      Search,
+    }
+  }
+})
+</script>
+
+<style lang="less" scoped>
+
+</style>
