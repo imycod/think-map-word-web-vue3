@@ -1,11 +1,21 @@
 <template>
-  <el-drawer v-model="drawer2" :direction="'rtl'" :before-close="beforeClose">
+  <el-drawer class="drawer-container" v-model="drawer2" :direction="'rtl'" :before-close="beforeClose">
     <template #title>
       <h4>set title by slot</h4>
     </template>
     <template #default>
-      <div>
-        111
+      <div class="default">
+        <ul>
+          <li class="content" v-for="(content,index) in drawerContent.content" :key="index">
+            <div class="video" style="width: 400px;height: 200px">
+              <video controls preload="auto" style="object-fit: fill;width: 100%;height: 100%;" :src="content.av"></video>
+            </div>
+            <div>
+              {{content.name}}
+              <button @click="play(content.soundUrl)">play</button>
+            </div>
+          </li>
+        </ul>
       </div>
     </template>
     <template #footer>
@@ -26,6 +36,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
     required: true,
+  },
+  drawerContent:{
+    type:Object,
+    default:true,
+    required:true
   }
 })
 const emit = defineEmits(['close'])
@@ -41,8 +56,17 @@ function confirmClick() {
 function beforeClose() {
   emit('close', {type: 'beforeClose', value: false})
 }
+
+function play(url) {
+  const sound = new Howl({
+    src: [url]
+  });
+  sound.play()
+}
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.drawer-container{
 
+}
 </style>

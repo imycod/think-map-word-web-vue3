@@ -10,6 +10,11 @@ class Graph {
         // this.myChart.showLoading();
     }
     initOption(graph) {
+        // graph.nodes.forEach(function (node) {
+        //     node.label = {
+        //         show: node.symbolSize > 30
+        //     };
+        // });
         const option = {
             tooltip: {},
             legend: [
@@ -19,13 +24,25 @@ class Graph {
                     }),
                 },
             ],
-            series: [
+            animationDurationUpdate: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series:  [
                 {
                     roam: true,
                     type: "graph",
                     layout: "force",
                     animation: false,
                     draggable: true,
+                    // symbolSize: 50,
+                    // symbolSize: (value, params) => {
+                    //     //根据数据params中的data来判定数据大小
+                    //     switch (params.data.category) {
+                    //         case 0:return 150;break;
+                    //         case 1:return 30;break;
+                    //         case 2:return 20;break;
+                    //         default:return 10;
+                    //     };
+                    // },
                     data: graph.nodes.map(function (node, idx) {
                         node.id = idx;
                         return node;
@@ -37,6 +54,7 @@ class Graph {
                         gravity: 0.2,
                     },
                     edges: graph.links,
+                    edgeSymbol: ['arrow'],
                     label: {
                         show: true,
                         position: "right",

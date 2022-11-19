@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import("./assets/css/index.less")
+
 import echarts from '@/utils/import-loader/echarts.js'
 import router from "@/routers/index.js"
 
-import autoImportComponents from "@/components/components-loader.js"
+import autoImportComponents from "@/components/auto-import.js"
 
 const app = createApp(App)
 

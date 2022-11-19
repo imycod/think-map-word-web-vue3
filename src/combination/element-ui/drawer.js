@@ -1,7 +1,10 @@
-import {ref} from "vue";
+import {ref,reactive} from "vue";
 
 export default function useDrawer() {
     const drawer2 = ref(false)
+    const drawerContent = reactive({
+        content:[]
+    })
 
     function close(params) {
         const {type, value} = params
@@ -13,8 +16,10 @@ export default function useDrawer() {
                 break;
         }
     }
+
     return {
         drawer2,
         close,
+        drawerContent,
     }
 }

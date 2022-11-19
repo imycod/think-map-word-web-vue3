@@ -1,14 +1,15 @@
 <template>
-  <div class="common-layout bd">
+  <div class="common-layout">
     <div id="main" style="width: 100%; height: 100vh"></div>
-    <drawer :drawer2="drawer2" @close="close"></drawer>
+    <drawer :drawer2="drawer2" @close="close" :drawerContent="drawerContent"></drawer>
   </div>
 </template>
 
 <script>
 import {onMounted /*getCurrentInstance*/, onUnmounted} from "vue";
 import Graph from "@/utils/Graph.js";
-import option from "@/assets/data/les-miserables.json";
+// import option from "@/assets/data/les-miserables.json";
+import option from "@/assets/data/conquest.json";
 import useDrawer from "@/combination/element-ui/drawer.js";
 
 export default {
@@ -16,7 +17,7 @@ export default {
   components: {},
   setup() {
     // drawer start
-    const {drawer2, close} = useDrawer()
+    const {drawer2, close,drawerContent} = useDrawer()
     // drawer end
 
     let graph = null;
@@ -36,17 +37,17 @@ export default {
     }
 
     function handleClick(params) {
-      console.log("params---", params);
-      console.log(params.data.name);
-      console.log('drawer2.value ---', drawer2.value)
+      // 点击echarts的nodes
+      const nodeName= params.name
       drawer2.value = true
-      console.log('drawer2.value ---', drawer2.value)
+      drawerContent.content=option.sentence[nodeName]
     }
 
     return {
       // drawer start
       drawer2,
       close,
+      drawerContent,
       //  drawer end
     };
   },
