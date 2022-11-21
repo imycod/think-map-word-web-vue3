@@ -7,15 +7,18 @@
         </el-col>
         <el-col class="middle" :span="6">
           <el-input
-              v-model="input1"
-              class="w-50 m-2"
-              size="large"
-              placeholder="Please Input"
-              :prefix-icon="Search"
+            v-model="input1"
+            @keydown.enter="toSearch"
+            class="w-50 m-2"
+            size="large"
+            placeholder="Please Input"
+            :prefix-icon="Search"
           />
         </el-col>
-        <el-col class="right" :span="2"  :offset="4">
-          <el-avatar  src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png" />
+        <el-col class="right" :span="2" :offset="4">
+          <el-avatar
+            src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
+          />
         </el-col>
       </el-row>
     </el-header>
@@ -26,20 +29,21 @@
 </template>
 <script>
 /* eslint-disable */
-import {defineComponent, ref} from "vue";
-import {Search} from '@element-plus/icons-vue'
+import { defineComponent } from "vue";
+import { Search } from "@element-plus/icons-vue";
+import { useSearch } from "@/combination/element-ui/layout.js";
 export default defineComponent({
   name: "layout",
   setup() {
-    const input1=ref('')
+    const { input1, toSearch } = useSearch();
     return {
-      input1,
       Search,
-    }
-  }
-})
+      input1,
+      toSearch,
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
-
 </style>

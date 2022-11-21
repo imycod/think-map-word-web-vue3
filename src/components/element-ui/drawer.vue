@@ -29,7 +29,6 @@
 
 <script setup>
 /* eslint-disable */
-import {defineEmits, defineProps} from "vue";
 
 const props = defineProps({
   drawer2: {

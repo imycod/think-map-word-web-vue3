@@ -8,9 +8,11 @@
 <script>
 import {onMounted /*getCurrentInstance*/, onUnmounted} from "vue";
 import Graph from "@/utils/Graph.js";
-// import option from "@/assets/data/les-miserables.json";
-import option from "@/assets/data/conquest.json";
 import useDrawer from "@/combination/element-ui/drawer.js";
+
+import {useLayout} from "@/stores/layout.js";
+// import option from "@/assets/data/les-miserables.json";
+// import option from "@/assets/data/conquest.json";
 
 export default {
   name: "App",
@@ -20,12 +22,16 @@ export default {
     const {drawer2, close,drawerContent} = useDrawer()
     // drawer end
 
+    // stores start
+    const layoutStore = useLayout()
+    // stores end
+
     let graph = null;
     onMounted(() => {
       // const { proxy } = getCurrentInstance();
       graph = new Graph(document.getElementById("main"));
       graph.chart.on("click", handleClick);
-      graph.initOption(option);
+      graph.initOption(layoutStore.option);
       window.addEventListener("resize", resize, false);
     });
     onUnmounted(() => {

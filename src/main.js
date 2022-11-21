@@ -1,5 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+
+import pinia from './stores/index.js'
+
 // import {lunchbox} from "lunchboxjs";
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -16,5 +19,6 @@ autoImportComponents(app)
 app.config.globalProperties.$echarts = echarts
 
 // app.use(lunchbox)
+app.use(pinia)
 app.use(router)
 app.mount('#app')
