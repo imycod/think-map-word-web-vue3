@@ -8,22 +8,29 @@
 import camelCase from "lodash/camelCase"
 import upperFirst from "lodash/upperFirst"
 import remove from "lodash/remove"
+import xor from "lodash/xor"
 
+// 全部文件目录  ['./lunchbox/xxx.vue','./element-ui/xxx.vue',...]
 const requireComponent = require.context(
     // 其组件目录的相对路径
     './',
     // 是否查询其子目录
     true,
     // 匹配基础组件文件名的正则表达式
-    /(.*?)\.(vue|js)$/
+    /(.*?)\.(vue)$/
 )
-//  /gok-(.*?)\.(vue|js)$/
+// 要移除的文件目录 lunchbox ['./lunchbox/xxx.vue']
+const lunchboxComponent = require.context('./', true, /lunchbox\/(.*?)\.(vue)$/)
+
 export default function autoImportComponents(app) {
     /// ////////////////////////////////////////////////////////////////////////////
     /// 全局通用组件注册
-    /// 通用组件注册前缀名 gok****
+    /// 通用组件注册前缀名
     /// ////////////////////////////////////////////////////////////////////////////
-    remove(requireComponent.keys(), (files) => files !== './components-loader.js').forEach(fileName => {
+
+    // 取完交集后剩下要全局注册的文件
+    const registerComponents=xor(requireComponent.keys(), lunchboxComponent.keys())
+    remove(registerComponents, (file) => file !== './auto-import.js').forEach(fileName => {
         const componentConfig = requireComponent(fileName)
         const componentName = upperFirst(
             // 获取和目录深度无关的文件名
