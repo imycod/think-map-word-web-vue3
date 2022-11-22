@@ -1,29 +1,31 @@
 <template>
   <div class="common-layout">
     <div id="main" style="width: 100%; height: 100vh"></div>
-    <drawer :drawer2="drawer2" @close="close" :drawerContent="drawerContent"></drawer>
+    <drawer
+      :drawer2="drawer2"
+      @close="close"
+      :drawerContent="drawerContent"
+    ></drawer>
   </div>
 </template>
 
 <script>
-import {onMounted /*getCurrentInstance*/, onUnmounted} from "vue";
+import { onMounted /*getCurrentInstance*/, onUnmounted,watch } from "vue";
 import Graph from "@/utils/Graph.js";
 import useDrawer from "@/combination/element-ui/drawer.js";
 
-import {useLayout} from "@/stores/layout.js";
-// import option from "@/assets/data/les-miserables.json";
-// import option from "@/assets/data/conquest.json";
+import { useLayout } from "@/stores/layout.js";
 
 export default {
   name: "App",
   components: {},
   setup() {
     // drawer start
-    const {drawer2, close,drawerContent} = useDrawer()
+    const { drawer2, close, drawerContent } = useDrawer();
     // drawer end
 
     // stores start
-    const layoutStore = useLayout()
+    const layoutStore = useLayout();
     // stores end
 
     let graph = null;
@@ -34,6 +36,11 @@ export default {
       graph.initOption(layoutStore.option);
       window.addEventListener("resize", resize, false);
     });
+
+    watch(()=>layoutStore.option,(newVal,oldVal)=>{
+       graph.initOption(newVal);
+    },{deep:true})
+
     onUnmounted(() => {
       window.removeEventListener("resize", resize);
     });
@@ -44,9 +51,9 @@ export default {
 
     function handleClick(params) {
       // 点击echarts的nodes
-      const nodeName= params.name
-      drawer2.value = true
-      drawerContent.content=option.sentence[nodeName]
+      const nodeName = params.name;
+      drawer2.value = true;
+      drawerContent.content = option.sentence[nodeName];
     }
 
     return {

@@ -77,6 +77,7 @@ class Graph {
         this.setOption(option)
     }
     setOption(option) {
+        this.chart.clear()
         this.chart.setOption(option);
         // this.myChart.hideLoading();
     }
