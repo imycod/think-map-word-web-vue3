@@ -5,10 +5,11 @@
  * @LastEditTime: 2022-06-27 14:37:36
  * @FilePath: \college-teaching\src\components\components-loader.ts
  */
-import camelCase from "lodash/camelCase"
-import upperFirst from "lodash/upperFirst"
-import remove from "lodash/remove"
-import xor from "lodash/xor"
+// import camelCase from "lodash/camelCase"
+// import upperFirst from "lodash/upperFirst"
+// import remove from "lodash/remove"
+// import xor from "lodash/xor"
+import { camelCase,upperFirst,remove,xor } from "lodash-es"
 
 // 全部文件目录  ['./lunchbox/xxx.vue','./element-ui/xxx.vue',...]
 const requireComponent = require.context(
