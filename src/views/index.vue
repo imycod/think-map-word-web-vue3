@@ -14,7 +14,7 @@ import { onMounted /*getCurrentInstance*/, onUnmounted,watch } from "vue";
 import Graph from "@/utils/Graph.js";
 import useDrawer from "@/combination/element-ui/drawer.js";
 
-import { useLayout } from "@/stores/layout.js";
+import { useSearch as useSearchStore } from "@/stores/search.js";
 
 export default {
   name: "App",
@@ -25,7 +25,7 @@ export default {
     // drawer end
 
     // stores start
-    const layoutStore = useLayout();
+    const searchStore = useSearchStore();
     // stores end
 
     let graph = null;
@@ -33,11 +33,11 @@ export default {
       // const { proxy } = getCurrentInstance();
       graph = new Graph(document.getElementById("main"));
       graph.chart.on("click", handleClick);
-      graph.initOption(layoutStore.option);
+      graph.setOption(searchStore.option);
       window.addEventListener("resize", resize, false);
     });
 
-    watch(()=>layoutStore.option,(newVal,oldVal)=>{
+    watch(()=>searchStore.option,(newVal,oldVal)=>{
        graph.initOption(newVal);
     },{deep:true})
 

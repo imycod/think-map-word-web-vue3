@@ -4,7 +4,7 @@ import request from "@/request/index.js"
 // default options
 import option from "@/assets/data/conquest.json";
 
-export const useLayout = defineStore('layout', {
+export const useSearch = defineStore('search', {
     state() {
         return {
             option,

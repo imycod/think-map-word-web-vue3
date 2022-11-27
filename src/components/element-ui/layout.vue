@@ -27,22 +27,22 @@
     </el-main>
   </el-container>
 </template>
-<script>
+<script setup>
 /* eslint-disable */
-import { defineComponent } from "vue";
+// import { defineComponent } from "vue";
 import { Search } from "@element-plus/icons-vue";
-import { useSearch } from "@/combination/element-ui/layout.js";
-export default defineComponent({
-  name: "layout",
-  setup() {
+import { useLayoutSearch as useSearch } from "@/combination/element-ui/search.js";
+// export default defineComponent({
+//   name: "layout",
+//   setup() {
     const { input1, toSearch } = useSearch();
-    return {
-      Search,
-      input1,
-      toSearch,
-    };
-  },
-});
+    // return {
+    //   Search,
+    //   input1,
+    //   toSearch,
+    // };
+  // },
+// });
 </script>
 
 <style lang="less" scoped>

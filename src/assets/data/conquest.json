@@ -17,25 +17,19 @@
       "id": "3000001",
       "name": "conquest",
       "value": 0,
-      "category": 0,
-      "x": -81.46074,
-      "y": -104.20204
+      "category": 0
     },
     {
       "id": "3000002",
       "name": "conquer",
       "value": 1,
-      "category": 1,
-      "x": 0.64646,
-      "y": -31.512747
+      "category": 1
     },
     {
       "id": "3000003",
       "name": "queen",
       "value": 2,
-      "category": 0,
-      "x": 82.80825,
-      "y": -203.1144
+      "category": 0
     }
   ],
   "links": [

@@ -74,11 +74,11 @@ class Graph {
                 },
             ],
         }
-        this.chart.setOption(option);
+        this.setOption(option)
     }
     setOption(option) {
         this.chart.clear()
-        this.initOption(option)
+        this.chart.setOption(option);
         // this.myChart.hideLoading();
     }
 
