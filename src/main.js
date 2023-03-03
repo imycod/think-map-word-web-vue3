@@ -1,3 +1,4 @@
+// 我们不自觉的成为了小布尔乔亚,在这生活中苦并乐着
 import { createApp } from 'vue'
 import App from './App.vue'
 

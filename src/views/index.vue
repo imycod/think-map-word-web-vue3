@@ -1,18 +1,18 @@
 <template>
   <div class="common-layout">
     <div id="main" style="width: 100%; height: 100vh"></div>
-    <drawer
+    <element-drawer
       :drawer2="drawer2"
       @close="close"
       :drawerContent="drawerContent"
-    ></drawer>
+    ></element-drawer>
   </div>
 </template>
 
 <script>
 import { onMounted /*getCurrentInstance*/, onUnmounted,watch } from "vue";
 import Graph from "@/utils/Graph.js";
-import useDrawer from "@/combination/element-ui/drawer.js";
+import useDrawer from "@/combination/home/drawer.js";
 
 import { useSearch as useSearchStore } from "@/stores/search.js";
 

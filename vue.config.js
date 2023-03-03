@@ -18,6 +18,9 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath:'./',
   configureWebpack: {
+    devServer: {
+      historyApiFallback: true
+    },
     resolve: {
       alias: {
         '@': path.join(__dirname, 'src'),
