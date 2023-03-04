@@ -202,6 +202,8 @@ export default {
             return {
               id: node.id,
               label: node.value + node.label,
+              title: "单击发音,双击详情",
+              // font: { size: 12, color: "red", face: "sans", background: "white" },
             };
           });
         }
@@ -212,7 +214,7 @@ export default {
     async function useEdges() {
       try {
         const res = await getEdges();
-        if (res.code===200) {
+        if (res.code === 200) {
           data.edgesOpt = res.result;
         }
       } catch (e) {
@@ -300,12 +302,12 @@ export default {
 
       function addEdge() {
         try {
-          const edge={
+          const edge = {
             id: table.edgeId,
             from: table.edgeFrom,
             to: table.edgeTo,
-            arrows: checkList.value.join(",")
-          }
+            arrows: checkList.value.join(","),
+          };
           edges.add(edge);
           createEdge(edge);
           resetEdge();
@@ -326,7 +328,7 @@ export default {
             id: table.edgeId,
             from: table.edgeFrom,
             to: table.edgeTo,
-            arrows: "" 
+            arrows: "",
           });
           resetEdge();
         } catch (err) {
@@ -410,7 +412,19 @@ export default {
 
       // create a network
       const container = document.getElementById("mynetwork");
-      const options = {};
+      const options = {
+        nodes: {
+          shape: "dot",
+          size: 10,
+        },
+        edges: {
+          smooth: {
+            type: "continuous",
+            forceDirection: "none",
+            roundness: 1,
+          },
+        },
+      };
       network = new Network(
         container,
         {
@@ -419,6 +433,18 @@ export default {
         },
         options
       );
+
+      network.on("click", function (params) {
+        params.event = "[original event]";
+
+        console.log(
+          "click event, getNodeAt returns: " +
+            this.getNodeAt(params.pointer.DOM)
+        );
+      });
+      network.on("doubleClick", function (params) {
+        params.event = "[original event]";
+      });
     }
 
     return {
