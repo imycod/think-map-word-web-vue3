@@ -1,10 +1,3 @@
-/*
- * @Author: lpj 1248708823@qq.com
- * @Date: 2022-05-11 15:40:13
- * @LastEditors: lpj 1248708823@qq.com
- * @LastEditTime: 2022-06-27 14:37:36
- * @FilePath: \college-teaching\src\components\components-loader.ts
- */
 // import camelCase from "lodash/camelCase"
 // import upperFirst from "lodash/upperFirst"
 // import remove from "lodash/remove"
@@ -31,6 +24,7 @@ export default function autoImportComponents(app) {
 
     // 取完交集后剩下要全局注册的文件
     const registerComponents=xor(requireComponent.keys(), lunchboxComponent.keys())
+    console.log('registerComponents---',registerComponents)
     remove(registerComponents, (file) => file !== './auto-import.js').forEach(fileName => {
         const componentConfig = requireComponent(fileName)
         const componentName = upperFirst(

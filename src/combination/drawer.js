@@ -1,8 +1,9 @@
 import {ref,reactive} from "vue";
 
 export default function useDrawer() {
-    const drawer2 = ref(false)
-    const drawerContent = reactive({
+    const drawer = ref(false)
+    const data = reactive({
+        title:'',
         content:[]
     })
 
@@ -12,14 +13,14 @@ export default function useDrawer() {
             case 'cancelClick':
             case 'confirmClick':
             case 'beforeClose':
-                drawer2.value = value
+                drawer.value = value
                 break;
         }
     }
 
     return {
-        drawer2,
+        drawer,
         close,
-        drawerContent,
+        data,
     }
 }

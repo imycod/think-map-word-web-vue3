@@ -32,7 +32,7 @@
 /* eslint-disable */
 // import { defineComponent } from "vue";
 import {Search} from "@element-plus/icons-vue";
-import {useLayoutSearch as useSearch} from "@/combination/home/search.js";
+import {useLayoutSearch as useSearch} from "@/combination/search.js";
 
 export default {
   name: "HomeLayout",

@@ -1,12 +1,12 @@
 <template>
-  <el-drawer class="drawer-container" v-model="drawer2" :direction="'rtl'" :before-close="beforeClose">
+  <el-drawer class="drawer-container" v-model="drawer" :direction="'rtl'" :before-close="beforeClose">
     <template #title>
-      <h4>set title by slot</h4>
+      <h4>{{data.title}}</h4>
     </template>
     <template #default>
       <div class="default">
         <ul>
-          <li class="content" v-for="(content,index) in drawerContent.content" :key="index">
+          <li class="content" v-for="(content,index) in data.content" :key="index">
             <div class="video" style="width: 400px;height: 200px">
               <video controls preload="auto" style="object-fit: fill;width: 100%;height: 100%;" :src="content.av"></video>
             </div>
@@ -31,12 +31,12 @@
 /* eslint-disable */
 
 const props = defineProps({
-  drawer2: {
+  drawer: {
     type: Boolean,
     default: false,
     required: true,
   },
-  drawerContent:{
+  data:{
     type:Object,
     default:true,
     required:true

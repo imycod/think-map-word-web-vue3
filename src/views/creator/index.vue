@@ -176,52 +176,12 @@ import {
   getEdges,
   updateNodes,
 } from "@/apis/network";
+import useNetwork from "@/combination/useNetwork";
 
 export default {
   name: "creator",
   components: {},
   setup() {
-    let nodes, edges, network;
-
-    onMounted(async () => {
-      await useNodes();
-      await useEdges();
-      draw();
-    });
-
-    const data = reactive({
-      nodesOpt: [],
-      edgesOpt: [],
-    });
-
-    async function useNodes() {
-      try {
-        const res = await getNodes();
-        if (res.code === 200) {
-          data.nodesOpt = res.result.map((node) => {
-            return {
-              id: node.id,
-              label: node.value + node.label,
-              title: "单击发音,双击详情",
-              // font: { size: 12, color: "red", face: "sans", background: "white" },
-            };
-          });
-        }
-      } catch (e) {
-        console.log("error", e.message);
-      }
-    }
-    async function useEdges() {
-      try {
-        const res = await getEdges();
-        if (res.code === 200) {
-          data.edgesOpt = res.result;
-        }
-      } catch (e) {
-        console.log("error", e.message);
-      }
-    }
-
     function useTable() {
       const table = reactive({
         nodeId: "",
@@ -369,83 +329,28 @@ export default {
       checkList,
     } = useTable();
 
-    // convenience method to stringify a JSON object
     function toJSON(obj) {
       return JSON.stringify(obj, null, 4);
     }
 
-    function draw() {
-      // create an array with nodes
-      nodes = new DataSet();
-      nodes.on("*", function () {
-        document.getElementById("nodes").innerText = JSON.stringify(
+    function nodeOnCallback(nodes) {
+      console.log(nodes.get())
+      document.getElementById("nodes").innerText = JSON.stringify(
           nodes.get(),
           null,
           4
-        );
-      });
-      const nodesOpt = [
-        // { id: "1", label: "Node 1" },
-        // { id: "2", label: "Node 2" },
-        // { id: "3", label: "Node 3" },
-        // { id: "4", label: "Node 4" },
-        // { id: "5", label: "Node 5" },
-      ];
-      nodes.add(data.nodesOpt);
-
-      // create an array with edges
-      edges = new DataSet();
-      edges.on("*", function () {
-        document.getElementById("edges").innerText = JSON.stringify(
+      );
+    }
+    function edgeOnCallback(edges) {
+      console.log('edges-',edges.get())
+      document.getElementById("edges").innerText = JSON.stringify(
           edges.get(),
           null,
           4
-        );
-      });
-      const edgesOpt = [
-        // { id: "1", from: "1", to: "2", arrows: "" },
-        // { id: "2", from: "1", to: "3" },
-        // { id: "3", from: "2", to: "4" },
-        // { id: "4", from: "2", to: "5" },
-      ];
-      edges.add(data.edgesOpt);
-
-      // create a network
-      const container = document.getElementById("mynetwork");
-      const options = {
-        nodes: {
-          shape: "dot",
-          size: 10,
-        },
-        edges: {
-          smooth: {
-            type: "continuous",
-            forceDirection: "none",
-            roundness: 1,
-          },
-        },
-      };
-      network = new Network(
-        container,
-        {
-          nodes: nodes,
-          edges: edges,
-        },
-        options
       );
-
-      network.on("click", function (params) {
-        params.event = "[original event]";
-
-        console.log(
-          "click event, getNodeAt returns: " +
-            this.getNodeAt(params.pointer.DOM)
-        );
-      });
-      network.on("doubleClick", function (params) {
-        params.event = "[original event]";
-      });
     }
+    useNetwork('mynetwork',nodeOnCallback,edgeOnCallback)
+
 
     return {
       addNode,
