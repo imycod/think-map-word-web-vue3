@@ -2,7 +2,7 @@ import {onMounted, reactive} from "vue";
 import {getEdges, getNodes} from "@/apis/network";
 import {DataSet, Network} from "vis-network/standalone/esm/vis-network";
 
-export default function useNetwork(id = "mynetwork", nodeOnCallback, edgeOnCallback, onClick, onDoubleClick) {
+export default function useNetwork(networkOptions) {
     let nodes, edges, network;
     onMounted(async () => {
         await useNodes();
@@ -46,6 +46,8 @@ export default function useNetwork(id = "mynetwork", nodeOnCallback, edgeOnCallb
 
     function draw() {
         nodes = new DataSet();
+
+        const {nodeOnCallback, edgeOnCallback}=networkOptions.on
         nodes.on("*", function () {
             nodeOnCallback && nodeOnCallback(nodes)
         });
@@ -57,6 +59,7 @@ export default function useNetwork(id = "mynetwork", nodeOnCallback, edgeOnCallb
         });
         edges.add(data.edgesOpt);
 
+        const {id} = networkOptions
         const container = document.getElementById(id);
         const options = {
             nodes: {
@@ -79,19 +82,19 @@ export default function useNetwork(id = "mynetwork", nodeOnCallback, edgeOnCallb
             },
             options
         );
-
+        const {onNetworkClick, onNetworkDoubleClick}=networkOptions.on
         network.on("click", (params) => {
             const id = params.nodes[0]
             console.log(id)
-            onClick && onClick({
+            onNetworkClick && onNetworkClick({
                 ...params,
             })
         });
         network.on("doubleClick", (params) => {
             const id = params.nodes[0]
-            onDoubleClick && onDoubleClick({
+            onNetworkDoubleClick && onNetworkDoubleClick({
                 ...params,
-                node:nodes.get(id)
+                node: nodes.get(id)
             })
         })
     }

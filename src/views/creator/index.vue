@@ -9,20 +9,20 @@
             <tr>
               <td></td>
               <td><label for="node-id">Id</label></td>
-              <td><input v-model="table.nodeId" id="node-id" type="text" /></td>
+              <td><input v-model="table.nodeId" id="node-id" type="text"/></td>
             </tr>
             <tr>
               <td></td>
               <td><label for="node-value">单词</label></td>
               <td>
-                <input v-model="table.nodeValue" id="node-value" type="text" />
+                <input v-model="table.nodeValue" id="node-value" type="text"/>
               </td>
             </tr>
             <tr>
               <td></td>
               <td><label for="node-label">名称</label></td>
               <td>
-                <input v-model="table.nodeLabel" id="node-label" type="text" />
+                <input v-model="table.nodeLabel" id="node-label" type="text"/>
               </td>
             </tr>
             <tr>
@@ -30,9 +30,9 @@
               <td><label for="node-understood">理解</label></td>
               <td>
                 <input
-                  v-model="table.nodeUnderstood"
-                  id="node-understood"
-                  type="text"
+                    v-model="table.nodeUnderstood"
+                    id="node-understood"
+                    type="text"
                 />
               </td>
             </tr>
@@ -41,19 +41,19 @@
               <td><label for="node-parts">词性</label></td>
               <td>
                 <el-select
-                  v-model="table.parts"
-                  multiple
-                  collapse-tags
-                  collapse-tags-tooltip
-                  placeholder="Select"
-                  size="small"
-                  clearable
+                    v-model="table.parts"
+                    multiple
+                    collapse-tags
+                    collapse-tags-tooltip
+                    placeholder="Select"
+                    size="small"
+                    clearable
                 >
                   <el-option
-                    v-for="item in parts"
-                    :key="item.value"
-                    :label="item.name"
-                    :value="item"
+                      v-for="item in parts"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item"
                   />
                 </el-select>
               </td>
@@ -63,19 +63,19 @@
               <td><label for="node-levels">范围</label></td>
               <td>
                 <el-select
-                  v-model="table.levels"
-                  multiple
-                  collapse-tags
-                  collapse-tags-tooltip
-                  placeholder="Select"
-                  size="small"
-                  clearable
+                    v-model="table.levels"
+                    multiple
+                    collapse-tags
+                    collapse-tags-tooltip
+                    placeholder="Select"
+                    size="small"
+                    clearable
                 >
                   <el-option
-                    v-for="item in levels"
-                    :key="item.value"
-                    :label="item.name"
-                    :value="item"
+                      v-for="item in levels"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item"
                   />
                 </el-select>
               </td>
@@ -97,28 +97,28 @@
             <tr>
               <td></td>
               <td><label for="edge-id">Id</label></td>
-              <td><input v-model="table.edgeId" id="edge-id" type="text" /></td>
+              <td><input v-model="table.edgeId" id="edge-id" type="text"/></td>
             </tr>
             <tr>
               <td></td>
               <td><label for="edge-from">From</label></td>
               <td>
-                <input v-model="table.edgeFrom" id="edge-from" type="text" />
+                <input v-model="table.edgeFrom" id="edge-from" type="text"/>
               </td>
             </tr>
             <tr>
               <td></td>
               <td><label for="edge-to">To</label></td>
-              <td><input v-model="table.edgeTo" id="edge-to" type="text" /></td>
+              <td><input v-model="table.edgeTo" id="edge-to" type="text"/></td>
             </tr>
             <tr>
               <td></td>
               <td><label for="">Arrows</label></td>
               <td>
                 <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="无" />
-                  <el-checkbox label="from" />
-                  <el-checkbox label="to" />
+                  <el-checkbox label="无"/>
+                  <el-checkbox label="from"/>
+                  <el-checkbox label="to"/>
                 </el-checkbox-group>
               </td>
             </tr>
@@ -138,9 +138,9 @@
     <h1>View</h1>
     <table class="view">
       <colgroup>
-        <col width="25%" />
-        <col width="25%" />
-        <col width="50%" />
+        <col width="25%"/>
+        <col width="25%"/>
+        <col width="50%"/>
       </colgroup>
       <tr>
         <td>
@@ -164,8 +164,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from "vue";
-import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
+import {onMounted, reactive, ref} from "vue";
 import parts from "@/enums/parts";
 import levels from "@/enums/levels";
 import {
@@ -216,7 +215,7 @@ export default {
             ...parts,
             ...levels,
           };
-          createNode({ value: table.nodeValue, ...record });
+          createNode({value: table.nodeValue, ...record});
           nodes.add({
             id: table.nodeId,
             label: table.nodeValue + nodeLabel,
@@ -243,8 +242,8 @@ export default {
             label: table.nodeLabel,
             partId: table.partId,
           };
-          updateNodes({ value: table.nodeValue, ...record });
-          nodes.update({ ...record, label: table.nodeValue + table.nodeLabel });
+          updateNodes({value: table.nodeValue, ...record});
+          nodes.update({...record, label: table.nodeValue + table.nodeLabel});
           resetNode();
         } catch (err) {
           alert(err);
@@ -253,7 +252,7 @@ export default {
 
       function removeNode() {
         try {
-          nodes.remove({ id: table.nodeId });
+          nodes.remove({id: table.nodeId});
           table.nodeId = "";
         } catch (err) {
           alert(err);
@@ -298,7 +297,7 @@ export default {
 
       function removeEdge() {
         try {
-          edges.remove({ id: table.edgeId });
+          edges.remove({id: table.edgeId});
           table.edgeId = "";
         } catch (err) {
           alert(err);
@@ -341,15 +340,21 @@ export default {
           4
       );
     }
+
     function edgeOnCallback(edges) {
-      console.log('edges-',edges.get())
+      console.log('edges-', edges.get())
       document.getElementById("edges").innerText = JSON.stringify(
           edges.get(),
           null,
           4
       );
     }
-    useNetwork('mynetwork',nodeOnCallback,edgeOnCallback)
+
+    const networkOptions = {
+      id: 'mynetwork',
+      on: {nodeOnCallback, edgeOnCallback}
+    }
+    useNetwork(networkOptions)
 
 
     return {

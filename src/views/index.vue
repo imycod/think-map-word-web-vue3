@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {onMounted /*getCurrentInstance*/, onUnmounted, watch} from "vue";
+import {nextTick, onMounted /*getCurrentInstance*/, onUnmounted, watch} from "vue";
 import useDrawer from "@/combination/drawer.js";
 import useNetwork from "@/combination/useNetwork";
 
@@ -30,8 +30,11 @@ export default {
       drawerData.title = params.node.label
     }
 
-    useNetwork('main', null, null, onNetworkClick, onNetworkDoubleClick);
-
+    const networkOptions = {
+      id: 'main',
+      on: {onNetworkClick, onNetworkDoubleClick}
+    }
+    useNetwork(networkOptions);
 
     return {
       drawer,
