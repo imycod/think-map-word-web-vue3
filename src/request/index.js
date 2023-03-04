@@ -31,8 +31,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const res = response.data
-
-        if (res.code !== 20000) {
+        if (res.code !== 200) {
 
             if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
 

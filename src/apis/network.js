@@ -4,6 +4,10 @@ function createNode(data) {
     return axios.post('/network/node/create',data)
 }
 
+function createEdge(data) {
+    return axios.post('/network/edge/create',data)
+}
+
 function updateNodes(data) {
     return axios.post('/network/node/update',data)
 }
@@ -22,6 +26,7 @@ function getEdges() {
 
 export {
     createNode,
+    createEdge,
     updateNodes,
     getNodeByLabel,
     getNodes,

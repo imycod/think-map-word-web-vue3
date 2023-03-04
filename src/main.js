@@ -20,10 +20,10 @@ autoImportComponents(app)
 
 console.log('process.env-----',process.env);
 // mockjs
-if (process.env.NODE_ENV === 'development') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
+// if (process.env.NODE_ENV === 'development') {
+//   const { mockXHR } = require('../mock')
+//   mockXHR()
+// }
 
 
 app.config.globalProperties.$echarts = echarts

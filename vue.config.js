@@ -31,6 +31,6 @@ module.exports = defineConfig({
     ]
   },
   devServer:{
-    onBeforeSetupMiddleware: ({ app }) => require('./mock/mock-server.js')
+    // onBeforeSetupMiddleware: ({ app }) => require('./mock/mock-server.js')
   }
 })
