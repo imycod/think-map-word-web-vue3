@@ -18,6 +18,20 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath:'./',
   configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.mdx?$/,
+          use: [
+            {
+              loader: '@mdx-js/loader',
+              /** @type {import('@mdx-js/loader').Options} */
+              options: {}
+            }
+          ]
+        }
+      ]
+    },
     devServer: {
       historyApiFallback: true
     },

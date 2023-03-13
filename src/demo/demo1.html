@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var nodes = new vis.DataSet([
+        { id: 1, label: 'Node 1' },
+        { id: 2, label: 'Node 2' },
+        { id: 3, label: 'Node 3' },
+    ]);
+
+    var edges = new vis.DataSet([]);
+
+    var container = document.getElementById('network-container');
+    var data = { nodes: nodes, edges: edges };
+    var options = {};
+
+    var network = new vis.Network(container, data, options);
+
+
+    network.addEdgeMode();
+
+    network.on("beforeDrawing", function(ctx) {
+        if (network.inEditMode) {
+            var selectedNode = network.getSelectedNodes()[0];
+            if (selectedNode !== undefined) {
+                var pointer = network.getPointer();
+                var fromNode = selectedNode;
+                var toNode = network.getNodeAt(pointer);
+                if (toNode !== undefined && fromNode !== toNode) {
+                    edges.add({ from: fromNode, to: toNode });
+                }
+            }
+        }
+    });
+
+
+    options = {
+        edges: {
+            color: '#000000'
+        },
+        nodes: {
+            shape: 'dot',
+            size: 10
+        }
+    };
+
+    /**
+     * 这样就可以在 vis-network 中实现拖拽连线的功能。当用户在编辑模式下选择一个节点并拖动到另一个节点时，会自动创建一条边连接它们。需要注意的是，这个示例中只实现了单向连线，如果需要实现双向连线，需要在回调函数中判断连线是否已存在。
+     */
+
+    /**
+     * vis-network 是一个基于 JavaScript 和 HTML5 的网络可视化库，因此它需要在浏览器环境中运行。微信小程序的运行环境是基于微信自己的WebView，与浏览器环境有所不同，因此不能直接使用 vis-network 库。
+     *
+     * 在微信小程序中，可以使用官方提供的 canvas 组件来实现类似的图形可视化功能。通过在 canvas 上绘制节点和边，可以实现基本的网络图形展示和交互效果。
+     *
+     * 如果你想要使用 vis-network 实现类似的功能，可以考虑使用小程序的 WebView 组件，在其中加载一个包含 vis-network 的 HTML 页面。不过需要注意的是，在小程序中加载外部页面需要使用小程序提供的 web-view 组件，并且需要设置安全域名，否则可能会因为跨域等问题无法正常加载页面。
+     */
+</script>
+</body>
+</html>

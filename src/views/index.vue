@@ -13,10 +13,10 @@
 import {nextTick, onMounted /*getCurrentInstance*/, onUnmounted, watch} from "vue";
 import useDrawer from "@/combination/drawer.js";
 import useNetwork from "@/combination/useNetwork";
-
 export default {
   name: "App",
-  components: {},
+  components: {
+  },
   setup() {
     const {drawer, close, data: drawerData} = useDrawer();
 

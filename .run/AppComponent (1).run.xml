@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AppComponent (1)" type="JavaScriptTestRunnerKarma" nameIsGenerated="true">
+    <config-file value="" />
+    <karma-package-dir value="$PROJECT_DIR$/../../work/framework/angular-learn/base-ng/node_modules/@angular/cli" />
+    <working-directory value="$PROJECT_DIR$/../../work/framework/angular-learn/base-ng" />
+    <node-interpreter value="project" />
+    <envs />
+    <scope-kind value="TEST_FILE" />
+    <method v="2" />
+  </configuration>
+</component>

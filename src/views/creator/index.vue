@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import {onMounted, reactive, ref} from "vue";
+import {reactive, ref, onMounted} from "vue";
 import parts from "@/enums/parts";
 import levels from "@/enums/levels";
 import {
@@ -175,12 +175,53 @@ import {
   getEdges,
   updateNodes,
 } from "@/apis/network";
-import useNetwork from "@/combination/useNetwork";
+import useNetwork, {demo} from "@/combination/useNetwork";
 
 export default {
   name: "creator",
   components: {},
   setup() {
+
+    function toJSON(obj) {
+      return JSON.stringify(obj, null, 4);
+    }
+
+    function nodeOnCallback(nodes) {
+      console.log(nodes.get())
+      document.getElementById("nodes").innerText = JSON.stringify(
+          nodes.get(),
+          null,
+          4
+      );
+    }
+
+    function edgeOnCallback(edges) {
+      console.log('edges-', edges.get())
+      document.getElementById("edges").innerText = JSON.stringify(
+          edges.get(),
+          null,
+          4
+      );
+    }
+
+    function networkDoubleClick(params) {
+      console.log('params---', params)
+      if (params.nodes.length > 0) {
+        console.log('-----')
+      } else if (params.edges.length > 0) {
+        removeEdges(params.edges[0])
+      }
+    }
+
+    const networkOptions = {
+      id: 'mynetwork',
+      on: {nodeOnCallback, edgeOnCallback, networkDoubleClick}
+    }
+    const {edges, nodes, removeEdges} = useNetwork(networkOptions)
+    // onMounted(()=>{
+    //   demo()
+    // })
+
     function useTable() {
       const table = reactive({
         nodeId: "",
@@ -297,7 +338,7 @@ export default {
 
       function removeEdge() {
         try {
-          edges.remove({id: table.edgeId});
+          removeEdges(Number(table.edgeId));
           table.edgeId = "";
         } catch (err) {
           alert(err);
@@ -327,35 +368,6 @@ export default {
       table,
       checkList,
     } = useTable();
-
-    function toJSON(obj) {
-      return JSON.stringify(obj, null, 4);
-    }
-
-    function nodeOnCallback(nodes) {
-      console.log(nodes.get())
-      document.getElementById("nodes").innerText = JSON.stringify(
-          nodes.get(),
-          null,
-          4
-      );
-    }
-
-    function edgeOnCallback(edges) {
-      console.log('edges-', edges.get())
-      document.getElementById("edges").innerText = JSON.stringify(
-          edges.get(),
-          null,
-          4
-      );
-    }
-
-    const networkOptions = {
-      id: 'mynetwork',
-      on: {nodeOnCallback, edgeOnCallback}
-    }
-    useNetwork(networkOptions)
-
 
     return {
       addNode,
